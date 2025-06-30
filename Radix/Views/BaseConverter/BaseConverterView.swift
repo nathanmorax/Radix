@@ -1,15 +1,13 @@
 //
-//  NewDesign.swift
+//  ContentView.swift
 //  Radix
 //
-//  Created by Jonathan Mora on 12/05/25.
+//  Created by Jonathan Mora on 26/04/25.
 //
 
+import SwiftUI
 
-
-/*import SwiftUI
-
-struct ContentView: View {
+struct BaseConverterView: View {
     
     @State private var selectedSystemFrom: NumberSystem? = nil
     @State private var selectedSystemTo: NumberSystem? = nil
@@ -18,12 +16,9 @@ struct ContentView: View {
     
     @Environment(\.verticalSizeClass) var sizeClass
     
-
-
-
     var convertedValue: String {
         guard let from = selectedSystemFrom, let to = selectedSystemTo else {
-            return "Loading.."
+            return "0"
         }
         return NumberConverter.convertToRadix(input, from: from, to: to)
     }
@@ -35,18 +30,15 @@ struct ContentView: View {
                 .ignoresSafeArea()
             VStack {
                 
-                outputConvertedResultView
-                
-                    .padding(.top, 32)
-                
-                Spacer()
-                
                 inputNumberField
+                
+                outputConvertedResultView
+                    .padding(.bottom, 24)
+                
                 
                 radixBoxInputSystemView
                                 
                 radixBoxSystemToView
-                    .padding(.bottom, 32)
                 
                 Keyboard(typeKeyboard: $input, selectedSystemFrom: $selectedSystemFrom, selectedSystemTo: $selectedSystemTo, system: selectedSystemFrom ?? .decimal)
                 
@@ -63,40 +55,42 @@ struct ContentView: View {
 
         Text(convertedValue)
             .foregroundStyle(Color.Text.secondary)
-            .font(.courierPrimeBold(size: 40 * scale))
+            .font(.courierPrimeBold(size: 36 * scale))
             .padding(.horizontal, 16)
     }
     
     
     var inputNumberField: some View {
         VStack(spacing: 6) {
-            /*Text("From")
-                .foregroundStyle(.white)
-                .font(.courierPrimeBold(size: 24))
-                .frame(maxWidth: .infinity, alignment: .leading)*/
-            
-            
             ZStack(alignment: .leading) {
                 if input.isEmpty {
                     Text("Enter number to convert..")
                         .foregroundColor(Color.Text.tertiary.opacity(0.6))
-                        .font(.courierPrimeBold(size: 20))
+                        .font(.courierPrimeBold(size: 18))
+                        .frame(maxWidth: .infinity)
                     
                 }
                 
                 TextField("", text: $input)
                     .foregroundStyle(Color.Text.tertiary)
                     .font(.courierPrimeBold(size: 20))
+                    .multilineTextAlignment(.center)
                     .disabled(true)
                     .onChange(of: input) {
                         if selectedSystemFrom == .decimal {
                             input = ValidateInputTextField().cleanDecimalInput(input)
                         }
                     }
-                
             }
+            
+            Image(systemName: "arrow.down")
+                .foregroundStyle(.white)
+                .padding(.top, 22)
+                .bold()
+
         }
         .padding()
+        .frame(maxWidth: .infinity)
         
     }
     
@@ -104,7 +98,7 @@ struct ContentView: View {
     var radixBoxInputSystemView: some View {
         HStack(spacing: 2) {
             ForEach(NumberSystem.allCases, id: \.self) { system in
-                BoxRadixSystemView(titleSystemNumber: system.title, isSelected: self.selectedSystemFrom == system)
+                BoxRadixSystemView(titleSystemNumber: String(localized: system.title), isSelected: self.selectedSystemFrom == system)
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             self.selectedSystemFrom = system
@@ -119,16 +113,10 @@ struct ContentView: View {
     var radixBoxSystemToView: some View {
         VStack {
             
-            /*Text("To")
-                .foregroundStyle(.white)
-                .font(.courierPrimeBold(size: 24))
-                .frame(maxWidth: .infinity, alignment: .leading)*/
-            
-            
             HStack(spacing: 4) {
                 ForEach(NumberSystem.allCases.filter { $0 != selectedSystemFrom }, id: \.self) { system in
                     let isDisabled = system == selectedSystemFrom
-                    BoxRadixSystemView(titleSystemNumber: system.title, isSelected: self.selectedSystemTo == system)
+                    BoxRadixSystemView(titleSystemNumber: String(localized: system.title), isSelected: self.selectedSystemTo == system)
                         .onTapGesture {
                             withAnimation(.easeInOut(duration: 0.5)) {
                                 if !isDisabled {
@@ -146,6 +134,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    BaseConverterView()
 }
-*/
+

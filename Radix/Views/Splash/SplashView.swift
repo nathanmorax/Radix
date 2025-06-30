@@ -11,7 +11,7 @@ struct SplashView: View {
 
     var body: some View {
         if isActive {
-            ContentView()
+            BaseConverterView()
         } else {
             VStack {
                 AnimatedLoadingView()
