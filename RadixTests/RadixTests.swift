@@ -10,6 +10,8 @@ import Testing
 
 struct RadixTests {
     
+    // MARK: - Base Convert - NumberSystem
+    
     @Test func testBinaryToDecimalConversion() {
         let result = NumberConverter.convertToRadix("1010", from: .binary, to: .decimal)
         #expect(result == "10")
@@ -78,4 +80,17 @@ struct RadixTests {
         #expect(NumberSystem.hexadecimal.title == "Hex")
     }
 
+    @Test func cleanDecimalInput() {
+        #expect(ValidateInputTextField().cleanDecimalInput("12345") == "12345")
+        #expect(ValidateInputTextField().cleanDecimalInput("12345.6789") == "12345.6789")
+    }
+    
+    @Test func swapOutConvert() {
+        KeyboardLogic.swapSystems(
+            input: "10",
+            selectedSystemFrom: .decimal,
+            selectedSystemTo: .none
+        )
+    }
 }
+
