@@ -37,6 +37,7 @@ struct BaseConverterView: View {
                 
                 
                 radixBoxInputSystemView
+                
                                 
                 radixBoxSystemToView
                 
@@ -55,6 +56,7 @@ struct BaseConverterView: View {
 
         Text(convertedValue)
             .foregroundStyle(Color.Text.secondary)
+            .accessibilityIdentifier("convertedResult")
             .font(.courierPrimeBold(size: 36 * scale))
             .padding(.horizontal, 16)
     }
@@ -72,6 +74,7 @@ struct BaseConverterView: View {
                 }
                 
                 TextField("", text: $input)
+                    .accessibilityIdentifier("inputTextField")
                     .foregroundStyle(Color.Text.tertiary)
                     .font(.courierPrimeBold(size: 20))
                     .multilineTextAlignment(.center)
@@ -99,6 +102,7 @@ struct BaseConverterView: View {
         HStack(spacing: 2) {
             ForEach(NumberSystem.allCases, id: \.self) { system in
                 BoxRadixSystemView(titleSystemNumber: String(localized: system.title), isSelected: self.selectedSystemFrom == system)
+                    .accessibilityIdentifier("from_\(system)")
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             self.selectedSystemFrom = system
@@ -117,6 +121,8 @@ struct BaseConverterView: View {
                 ForEach(NumberSystem.allCases.filter { $0 != selectedSystemFrom }, id: \.self) { system in
                     let isDisabled = system == selectedSystemFrom
                     BoxRadixSystemView(titleSystemNumber: String(localized: system.title), isSelected: self.selectedSystemTo == system)
+                        .accessibilityIdentifier("to_\(system)") // ✅ Ejemplo: to_decimal, to_hexadecimal
+
                         .onTapGesture {
                             withAnimation(.easeInOut(duration: 0.5)) {
                                 if !isDisabled {
