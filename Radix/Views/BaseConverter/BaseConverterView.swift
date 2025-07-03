@@ -24,7 +24,7 @@ struct BaseConverterView: View {
     }
     
     var body: some View {
-
+        
         ZStack {
             Color.Background
                 .ignoresSafeArea()
@@ -38,7 +38,7 @@ struct BaseConverterView: View {
                 
                 radixBoxInputSystemView
                 
-                                
+                
                 radixBoxSystemToView
                 
                 Keyboard(typeKeyboard: $input, selectedSystemFrom: $selectedSystemFrom, selectedSystemTo: $selectedSystemTo, system: selectedSystemFrom ?? .decimal)
@@ -53,7 +53,7 @@ struct BaseConverterView: View {
     
     var outputConvertedResultView: some View {
         let scale: CGFloat = sizeClass == .compact ? 2.0 : 1.0
-
+        
         Text(convertedValue)
             .foregroundStyle(Color.Text.secondary)
             .accessibilityIdentifier("convertedResult")
@@ -90,7 +90,7 @@ struct BaseConverterView: View {
                 .foregroundStyle(.white)
                 .padding(.top, 22)
                 .bold()
-
+            
         }
         .padding()
         .frame(maxWidth: .infinity)
@@ -103,6 +103,8 @@ struct BaseConverterView: View {
             ForEach(NumberSystem.allCases, id: \.self) { system in
                 BoxRadixSystemView(titleSystemNumber: String(localized: system.title), isSelected: self.selectedSystemFrom == system)
                     .accessibilityIdentifier("from_\(system)")
+                    .accessibilityLabel("Select \(system.title) as source system")
+                    .accessibilityHint("Tap to convert from \(system.title)")
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             self.selectedSystemFrom = system
@@ -122,7 +124,7 @@ struct BaseConverterView: View {
                     let isDisabled = system == selectedSystemFrom
                     BoxRadixSystemView(titleSystemNumber: String(localized: system.title), isSelected: self.selectedSystemTo == system)
                         .accessibilityIdentifier("to_\(system)") // ✅ Ejemplo: to_decimal, to_hexadecimal
-
+                    
                         .onTapGesture {
                             withAnimation(.easeInOut(duration: 0.5)) {
                                 if !isDisabled {

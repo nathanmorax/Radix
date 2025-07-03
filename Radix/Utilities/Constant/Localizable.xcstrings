@@ -100,6 +100,12 @@
           }
         }
       }
+    },
+    "Select %@ as source system" : {
+
+    },
+    "Tap to convert from %@" : {
+
     }
   },
   "version" : "1.0"
