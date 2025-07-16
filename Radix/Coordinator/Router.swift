@@ -23,8 +23,14 @@ public final class Router {
     public var sheetItems: Binding<AnyIdentifiable?> {
         Binding( get: { self.presentedSheetItem }, set: { self.presentedSheetItem = $0})
     }
+    public var fullScreenCoverItem: Binding<AnyIdentifiable?> {
+        Binding(get: { self.presentedFullScreenItem }, set: { self.presentedFullScreenItem = $0 })
+    }
+
     
     private var presentedSheetItem: AnyIdentifiable?
+    private var presentedFullScreenItem: AnyIdentifiable?
+
     
     public init() {}
     
@@ -48,4 +54,12 @@ public final class Router {
     public func dismissSheet() {
         presentedSheetItem = nil
     }
+    public func presentFullScreen(_ destination: any Identifiable) {
+        presentedFullScreenItem = AnyIdentifiable(destination: destination)
+    }
+
+    public func dismissFullScreen() {
+        presentedFullScreenItem = nil
+    }
+
 }
