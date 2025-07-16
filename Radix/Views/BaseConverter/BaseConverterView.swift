@@ -12,6 +12,7 @@ struct BaseConverterView: View {
     @State private var selectedSystemFrom: NumberSystem? = nil
     @State private var selectedSystemTo: NumberSystem? = nil
     @State private var input: String = ""
+    @State private var isPresentingMenu: Bool = false
     
     
     @Environment(\.verticalSizeClass) var sizeClass
@@ -30,6 +31,18 @@ struct BaseConverterView: View {
                 .ignoresSafeArea()
             VStack {
                 
+                HStack {
+                    Spacer()
+                    Button {
+                        isPresentingMenu = true
+                    } label: {
+                        Image(systemName: "line.3.horizontal")
+                            .foregroundStyle(.green)
+                            .font(.title2)
+                            .padding()
+                    }
+                }
+                
                 inputNumberField
                 
                 outputConvertedResultView
@@ -46,6 +59,10 @@ struct BaseConverterView: View {
             }
             .padding()
         }
+        .fullScreenCover(isPresented: $isPresentingMenu) {
+            OptionsMenu()
+        }
+
         
     }
     
@@ -142,6 +159,47 @@ struct BaseConverterView: View {
 }
 
 #Preview {
-    BaseConverterView()
+    OptionsMenu()
+}
+
+
+
+struct OptionsMenu: View {
+    var body: some View {
+        ZStack {
+            Color.black
+                .ignoresSafeArea()
+
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 30))
+                            .foregroundColor(.gray)
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding()
+
+                Spacer()
+
+                VStack {
+                    Text("Options Menu")
+                    Text("Options Menu")
+                    Text("Options Menu")
+                    Text("Options Menu")
+                }
+                .foregroundColor(Color.Text.tertiary.opacity(0.6))
+                .font(.courierPrimeBold(size: 18))
+                .frame(maxWidth: .infinity)
+                .frame(maxWidth: 200)
+                
+                Spacer()
+                
+            }
+        }
+    }
 }
 
