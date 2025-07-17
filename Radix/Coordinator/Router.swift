@@ -9,7 +9,6 @@ import SwiftUI
 import Observation
 
 public class AnyIdentifiable: Identifiable {
-
     public let destination: any Identifiable
     
     public init(destination: any Identifiable) {
@@ -19,47 +18,44 @@ public class AnyIdentifiable: Identifiable {
 
 @Observable
 public final class Router {
-    public var navigationPath = NavigationPath()
-    public var sheetItems: Binding<AnyIdentifiable?> {
-        Binding( get: { self.presentedSheetItem }, set: { self.presentedSheetItem = $0})
-    }
-    public var fullScreenCoverItem: Binding<AnyIdentifiable?> {
-        Binding(get: { self.presentedFullScreenItem }, set: { self.presentedFullScreenItem = $0 })
-    }
-
     
+    public var navigationPath = NavigationPath()
+    public var sheetItem: Binding<AnyIdentifiable?> {
+        Binding(
+            get: { self.presentedSheetItem },
+            set: { self.presentedSheetItem = $0 }
+        )
+    }
     private var presentedSheetItem: AnyIdentifiable?
-    private var presentedFullScreenItem: AnyIdentifiable?
-
     
     public init() {}
     
-    public func push(_ destination: any Hashable) {
-        navigationPath.append(destination)
-    }
-    
-    public func pop() {
-        guard !navigationPath.isEmpty else { return }
-        navigationPath.removeLast()
-    }
-    
-    public func popToRoot() {
-        navigationPath.removeLast(navigationPath.count)
-    }
-    
-    public func presentSheet(_ destination: any Identifiable) {
+    public func presentSheet(destination: any Identifiable) {
         presentedSheetItem = AnyIdentifiable(destination: destination)
     }
     
     public func dismissSheet() {
         presentedSheetItem = nil
     }
-    public func presentFullScreen(_ destination: any Identifiable) {
-        presentedFullScreenItem = AnyIdentifiable(destination: destination)
+    
+    public func navigate(to destination: any Hashable) {
+        navigationPath.append(destination)
     }
-
-    public func dismissFullScreen() {
-        presentedFullScreenItem = nil
+    
+    public func navigateBack() {
+        navigationPath.removeLast()
     }
-
+    
+    public func navigateToRoot() {
+        navigationPath.removeLast(navigationPath.count)
+    }
+    
+    public func presentFullScreenCover(destination: any Hashable) {
+        navigationPath.append(destination)
+    }
+    
+    public func dismissFullScreenCover() {
+        guard !navigationPath.isEmpty else { return }
+        navigationPath.removeLast()
+    }
 }

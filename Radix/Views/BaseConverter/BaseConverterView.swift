@@ -14,7 +14,8 @@ struct BaseConverterView: View {
     @State private var input: String = ""
     @State private var isPresentingMenu: Bool = false
     
-    
+    @Environment(Router.self) private var router
+
     @Environment(\.verticalSizeClass) var sizeClass
     
     var convertedValue: String {
@@ -34,7 +35,7 @@ struct BaseConverterView: View {
                 HStack {
                     Spacer()
                     Button {
-                        isPresentingMenu = true
+                        router.presentSheet(destination: SheetDestination.menu)
                     } label: {
                         Image(systemName: "line.3.horizontal")
                             .foregroundStyle(.green)
@@ -59,8 +60,14 @@ struct BaseConverterView: View {
             }
             .padding()
         }
-        .fullScreenCover(isPresented: $isPresentingMenu) {
-            OptionsMenu()
+        .fullScreenCover(item: router.sheetItem) { destination in
+            if let destination = destination.destination as? SheetDestination {
+                
+                switch destination {
+                case .menu: OptionsMenu()
+                    
+                }
+            }
         }
 
         
@@ -158,13 +165,8 @@ struct BaseConverterView: View {
     
 }
 
-#Preview {
-    OptionsMenu()
-}
-
-
-
 struct OptionsMenu: View {
+    @Environment(Router.self) private var router
     var body: some View {
         ZStack {
             Color.black
@@ -174,6 +176,7 @@ struct OptionsMenu: View {
                 HStack {
                     Spacer()
                     Button {
+                        router.dismissSheet()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 30))
@@ -202,4 +205,3 @@ struct OptionsMenu: View {
         }
     }
 }
-

@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct RadixApp: App {
+    @State var router: Router = .init()
     var body: some Scene {
         WindowGroup {
-            SplashView()
+            BaseConverterCoordinator()
+
         }
     }
 }
