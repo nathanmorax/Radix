@@ -18,25 +18,13 @@ struct BaseConverterView: View {
         ZStack {
             Color.Background.ignoresSafeArea()
             VStack {
-                HStack {
-                    Spacer()
-                    Button {
-                        router.presentSheet(destination: SheetDestination.menu)
-                    } label: {
-                        Image(systemName: "line.3.horizontal")
-                            .foregroundStyle(.green)
-                            .font(.title2)
-                            .padding()
-                    }
-                }
-                
                 inputNumberField
                 outputConvertedResultView
                     .padding(.bottom, 24)
                 
                 radixBoxInputSystemView
                 radixBoxSystemToView
-                
+                                
                 Keyboard(
                     typeKeyboard: $viewModel.input,
                     selectedSystemFrom: $viewModel.selectedSystemFrom,

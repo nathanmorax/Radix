@@ -13,6 +13,8 @@ struct Keyboard: View {
     @Binding var selectedSystemFrom: NumberSystem?
     @Binding var selectedSystemTo: NumberSystem?
     @State private var keyPressed: String? = nil
+    @Environment(Router.self) private var router
+
     
     let system: NumberSystem
     
@@ -45,7 +47,6 @@ struct Keyboard: View {
     var body: some View {
         VStack(spacing: 12) {
             Spacer()
-
             ForEach(0..<keyboardRows.count, id: \.self) { rowIndex in
                 if !keyboardRows[rowIndex].isEmpty {
                     HStack(spacing: 6) {
@@ -70,14 +71,19 @@ struct Keyboard: View {
             }
             HStack(spacing: 8) {
                 
+                ButtonMenuOptions {
+                    router.presentSheet(destination: SheetDestination.menu)
+
+                }
+                
                 ActionButtonsView(sysstemImage: "arrow.up.arrow.down") {
                     self.swapSystems()
                 }
-
                 
                 ActionButtonsView(sysstemImage: "delete.left") {
                     self.deleteInput()
                 }
+    
             }
         }
     }

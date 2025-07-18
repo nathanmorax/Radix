@@ -32,3 +32,20 @@ struct ThreeDKeyButton: ButtonStyle {
         .shadow(radius: 6, y: 4)
     }
 }
+
+
+struct ButtonMenuOptions: View {
+    let action: () -> Void
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Button(action: action) {
+                Circle()
+                    .fill(Color.primaryKeyboard)
+                    .padding(.all, 8)
+            }
+            .buttonStyle(ThreeDKeyButton(backGroundColor: Color.tertiaryKeyboard))
+        }
+    }
+}
+
