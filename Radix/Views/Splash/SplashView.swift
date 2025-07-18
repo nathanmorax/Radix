@@ -6,12 +6,12 @@
 //
 import SwiftUI
 
-struct SplashView: View {
+/*struct SplashView: View {
     @State private var isActive = false
 
     var body: some View {
         if isActive {
-            BaseConverterView()
+            BaseConverterView(viewModel: <#BaseConverterViewModelObservable#>)
         } else {
             VStack {
                 AnimatedLoadingView()
@@ -28,3 +28,4 @@ struct SplashView: View {
         }
     }
 }
+*/
