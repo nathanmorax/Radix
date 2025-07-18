@@ -135,14 +135,10 @@ struct OptionsMenu: View {
             VStack {
                 HStack {
                     Spacer()
-                    Button {
+                    
+                    ButtonCloseView {
                         router.dismissSheet()
-                    } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 30))
-                            .foregroundColor(.gray)
                     }
-                    .buttonStyle(.plain)
                 }
                 .padding()
                 

@@ -49,3 +49,17 @@ struct ButtonMenuOptions: View {
     }
 }
 
+struct ButtonCloseView: View {
+    let action: () -> Void
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Button(action: action) {
+                Image(systemName: "xmark")
+                    .foregroundColor(.white)
+                    .frame(maxWidth: 36, maxHeight: 36)
+            }
+            //.buttonStyle(ThreeDKeyButton(backGroundColor: Color.tertiaryKeyboard))
+        }
+    }
+}
