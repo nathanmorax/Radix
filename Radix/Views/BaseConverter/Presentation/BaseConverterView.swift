@@ -137,7 +137,7 @@ struct OptionsMenu: View {
                     Spacer()
                     KeyView(isRound: true, action: {
                         router.dismissSheet()
-                    }, key: "")
+                    }, key: "", systemImage: "house")
                 }
                 .padding()
                 

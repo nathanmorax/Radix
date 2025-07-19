@@ -59,7 +59,7 @@ struct Keyboard: View {
                             KeyView(isRound: false, action: {
                                 typeKeyboard.append(key)
                                 keyPressed = key
-                            }, key: key)
+                            }, key: key, systemImage: "")
                         }
                         
                         if rowIndex == 1 {
@@ -70,10 +70,12 @@ struct Keyboard: View {
             }
             HStack(spacing: 8) {
                 
-                ButtonMenuOptions {
+                KeyView(isRound: true, action: {
                     router.presentSheet(destination: SheetDestination.menu)
+                }, key: "", systemImage: "")
+                
+                .buttonStyle(ThreeDKeyButton(backGroundColor: Color.tertiaryKeyboard))
 
-                }
                 
                 ActionButtonsView(sysstemImage: "arrow.up.arrow.down") {
                     self.swapSystems()

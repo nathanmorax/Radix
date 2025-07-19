@@ -42,7 +42,6 @@ struct ButtonMenuOptions: View {
             Button(action: action) {
                 Circle()
                     .fill(Color.primaryKeyboard)
-                    .padding(.all, 8)
             }
             .buttonStyle(ThreeDKeyButton(backGroundColor: Color.tertiaryKeyboard))
         }
@@ -54,6 +53,7 @@ struct KeyView: View {
     var isRound = true
     let action: () -> Void
     let key: String?
+    let systemImage: String
 
 
     @ViewBuilder
@@ -64,7 +64,7 @@ struct KeyView: View {
                     .fill(Color.primaryKeyboard)
                     .frame(width: 44, height: 44)
                     .overlay(
-                        Image(systemName: "xmark")
+                        Image(systemName: systemImage)
                             .foregroundColor(.white)
                     )
             }
@@ -90,8 +90,8 @@ struct KeyView: View {
 }
 
 #Preview {
-    KeyView(isRound: true, action: {}, key: "")
+    KeyView(isRound: true, action: {}, key: "", systemImage: "xmarx")
         .padding()
-    KeyView(isRound: false, action: {}, key: "")
+    KeyView(isRound: false, action: {}, key: "", systemImage: "")
         .padding()
 }
