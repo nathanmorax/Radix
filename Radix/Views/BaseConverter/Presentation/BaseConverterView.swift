@@ -135,10 +135,9 @@ struct OptionsMenu: View {
             VStack {
                 HStack {
                     Spacer()
-                    
-                    ButtonCloseView {
+                    KeyView(isRound: true, action: {
                         router.dismissSheet()
-                    }
+                    }, key: "")
                 }
                 .padding()
                 

@@ -49,17 +49,49 @@ struct ButtonMenuOptions: View {
     }
 }
 
-struct ButtonCloseView: View {
+// MARK: - TODO Style Keaboard
+struct KeyView: View {
+    var isRound = true
     let action: () -> Void
+    let key: String?
 
-    var body: some View {
-        HStack(spacing: 8) {
+
+    @ViewBuilder
+    private var keyBoard: some View {
+        if isRound {
             Button(action: action) {
-                Image(systemName: "xmark")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: 36, maxHeight: 36)
+                Circle()
+                    .fill(Color.primaryKeyboard)
+                    .frame(width: 44, height: 44)
+                    .overlay(
+                        Image(systemName: "xmark")
+                            .foregroundColor(.white)
+                    )
             }
-            //.buttonStyle(ThreeDKeyButton(backGroundColor: Color.tertiaryKeyboard))
+        } else {
+            Button(action: action) {
+                Text(key ?? "")
+                    .font(.courierPrimeBold(size: 18))
+                    .foregroundStyle(Color.black)
+                    .frame(maxWidth: .infinity, minHeight: 60)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.Button.primaryKeyboard)
+                    )
+            }
+            .buttonStyle(ThreeDKeyButton(backGroundColor: Color.Button.tertiaryKeyboard))
+
         }
     }
+
+    var body: some View {
+        keyBoard // Aquí se muestra la vista del teclado
+    }
+}
+
+#Preview {
+    KeyView(isRound: true, action: {}, key: "")
+        .padding()
+    KeyView(isRound: false, action: {}, key: "")
+        .padding()
 }

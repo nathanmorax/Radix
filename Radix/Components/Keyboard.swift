@@ -56,11 +56,10 @@ struct Keyboard: View {
                         }
                         
                         ForEach(keyboardRows[rowIndex], id: \.self) { key in
-                            KeyButton(key: key) {
+                            KeyView(isRound: false, action: {
                                 typeKeyboard.append(key)
                                 keyPressed = key
-                            }
-                            .buttonStyle(ThreeDKeyButton(backGroundColor: Color.Button.tertiaryKeyboard))
+                            }, key: key)
                         }
                         
                         if rowIndex == 1 {
